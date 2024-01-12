@@ -26,21 +26,24 @@ struct LoginView: View {
                     TextField("Email Address", text: $viewModel.email)
                         .textFieldStyle(DefaultTextFieldStyle())
                         .autocapitalization(.none)
+                        
                     SecureField("Password", text: $viewModel.password)
                         .textFieldStyle(DefaultTextFieldStyle())
                     STButton(title: "Log In", background: .blue) {
+                        viewModel.requestNotificationPermission()
                         viewModel.login()
+                        
                     }
                     .padding()
                 }
-                .offset(y: -50)
+                .offset(y: -70)
                 //Create Account
                 VStack {
                     Text("New around here?")
                     NavigationLink("Create An Account", destination: RegisterView())
                 }
-                .padding(.bottom, 50)
-                Spacer()
+                .offset(y: -50)
+                
             }
         }
     }

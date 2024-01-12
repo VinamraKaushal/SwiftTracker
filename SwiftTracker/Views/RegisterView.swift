@@ -28,6 +28,7 @@ struct RegisterView: View {
                 STButton(title: "Create Account", background: .green) {
                     //Attempt registration
                     viewModel.register()
+                    viewModel.requestNotificationPermission()
                 }
                 .padding()
             }

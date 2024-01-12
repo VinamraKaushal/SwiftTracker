@@ -8,6 +8,7 @@
 import Foundation
 import FirebaseAuth
 import FirebaseFirestore
+import UserNotifications
 
 class NewItemViewViewModel: ObservableObject {
     @Published var title = ""
@@ -25,6 +26,8 @@ class NewItemViewViewModel: ObservableObject {
             return
         }
         
+        scheduleNotification(for: title, at: dueDate)
+        
         //Create a Model
         let newId = UUID().uuidString
         let newItem = SwiftTrackerItem(id: newId, title: title, dueDate: dueDate.timeIntervalSince1970, createdDate: Date().timeIntervalSince1970, isDone: false)
@@ -36,6 +39,8 @@ class NewItemViewViewModel: ObservableObject {
             .collection("todos")
             .document(newId)
             .setData(newItem.asDictionary())
+        
+        //scheduleNotification(for: title, at: dueDate)
     }
     
     var canSave: Bool {
@@ -47,5 +52,26 @@ class NewItemViewViewModel: ObservableObject {
             return false
         }
         return true
+    }
+    
+    
+    private func scheduleNotification(for task: String, at date: Date) {
+        let content = UNMutableNotificationContent()
+        content.title = "Task Reminder"
+        content.body = "Don't forget: \(task)"
+        content.sound = UNNotificationSound.default
+        
+        let dateComponents = Calendar.current.dateComponents([.hour, .minute], from: date)
+        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
+        
+        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+        
+        UNUserNotificationCenter.current().add(request) { error in
+            if let error = error {
+                print("Error scheduling notification: \(error.localizedDescription)")
+            } else {
+                print("Notification scheduled successfully for task: \(task) at \(date)")
+            }
+        }
     }
 }

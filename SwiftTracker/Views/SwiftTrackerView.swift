@@ -16,7 +16,6 @@ struct SwiftTrackerView: View {
         self._items = FirestoreQuery(collectionPath: "users/\(userId)/todos")
         self._viewModel = StateObject(wrappedValue: SwiftTrackerViewViewModel(userId: userId))
     }
-    
     var body: some View {
         NavigationView {
             VStack {
@@ -44,8 +43,11 @@ struct SwiftTrackerView: View {
             }
         }
     }
+    
+    
 }
 
 #Preview {
     SwiftTrackerView(userId: "")
 }
+

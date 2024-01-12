@@ -32,7 +32,7 @@ struct ProfileView: View {
         Image("Profile")
             .resizable()
             .aspectRatio(contentMode: .fit)
-            .foregroundColor(Color.blue)
+            //.foregroundColor(Color.blue)
             .frame(width: 200, height: 200)
             .padding()
         //info: name, email, member since

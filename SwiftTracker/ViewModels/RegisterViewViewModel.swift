@@ -8,6 +8,7 @@
 import FirebaseFirestore
 import FirebaseAuth
 import Foundation
+import UserNotifications
 
 class RegisterViewViewModel: ObservableObject {
     @Published var name = ""
@@ -48,5 +49,15 @@ class RegisterViewViewModel: ObservableObject {
             return false
         }
         return true
+    }
+    
+    func requestNotificationPermission() {
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+            if granted {
+                print("Notification permission granted")
+            } else if let error = error {
+                print("Error requesting notification permission: \(error.localizedDescription)")
+            }
+        }
     }
 }

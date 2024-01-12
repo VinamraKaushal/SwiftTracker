@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UserNotifications
 
 struct NewItemView: View {
     @StateObject var viewModel = NewItemViewViewModel()
@@ -24,7 +25,7 @@ struct NewItemView: View {
                     .autocorrectionDisabled()
                     .textInputAutocapitalization(.none)
                 //Due date
-                DatePicker("Due Date", selection: $viewModel.dueDate)
+                DatePicker("Due Date", selection: $viewModel.dueDate, displayedComponents: [.date, .hourAndMinute])
                     .datePickerStyle(GraphicalDatePickerStyle())
                 //Button
                 STButton(title: "Save", background: .pink) {

@@ -27,9 +27,9 @@ struct HeaderView: View {
                     .font(.system(size: 30))
                     .foregroundColor(Color.white)
             }
-            .padding(.top, 80)
+            .padding(.top, 110)
         }
-        .frame(width: UIScreen.main.bounds.width * 3, height: 350)
+        .frame(width: UIScreen.main.bounds.width * 3, height: 320)
         .offset(y: -150)
     }
 }
